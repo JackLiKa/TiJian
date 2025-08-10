@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--namespace名称空间-->
+
+<mapper namespace="com.example.jnu_tijian.mapper.CheckitemMapper">
+<select id="selectByPrimaryKey" parameterType="Integer" resultType="com.example.jnu_tijian.entity.Checkitem">
+    SELECT * FROM checkitem WHERE ciId = #{ciId}
+</select>
+
+<!--    <select id="selectByPrimaryKey" resultMap="com.example.jnu_tijian.entity.Checkitem" parameterType="Integer" >-->
+<!--        select * from checkitem-->
+<!--        where ciId = #{ciId,jdbcType=INTEGER}-->
+<!--    </select>-->
+
+
+</mapper>

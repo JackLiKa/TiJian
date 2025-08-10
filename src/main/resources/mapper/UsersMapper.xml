@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--namespace名称空间-->
+
+<mapper namespace="com.example.jnu_tijian.mapper.UsersMapper">
+
+    <select id="getAll" resultType="com.example.jnu_tijian.entity.Users">
+        SELECT * FROM users
+    </select>
+
+    <select id="login" resultType="com.example.jnu_tijian.entity.Users" parameterType="com.example.jnu_tijian.entity.Users">
+        SELECT * FROM users WHERE userId = #{userId} AND password = #{password}
+    </select>
+
+    <insert id="register"  parameterType="com.example.jnu_tijian.entity.Users">
+        INSERT INTO users (userId, password, realName, sex, identityCard, birthday,userType)
+        VALUES (#{userId}, #{password}, #{realName}, #{sex}, #{identityCard}, #{birthday},#{userType})
+    </insert>
+
+</mapper>

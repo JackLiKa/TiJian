@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--namespace名称空间-->
+
+<mapper namespace="com.example.jnu_tijian.mapper.OrdersMapper">
+
+
+
+    <select id="listHospitalAppointmentNumber" parameterType="com.example.jnu_tijian.dto.OrdersMapperDto"
+            resultType="com.example.jnu_tijian.dto.CalendarResponseDto">
+        <foreach collection="list" item="dto" separator="union">
+            select #{dto.date} ymd,count(*) existing from orders where orderDate=#{dto.date} and hpId=#{dto.hpId}
+        </foreach>
+    </select>
+
+    <insert id="insert" parameterType="com.example.jnu_tijian.entity.Orders" >
+        insert into orders (orderId, orderDate, userId,
+        hpId, smId, state)
+        values (#{orderId,jdbcType=INTEGER}, #{orderDate,jdbcType=DATE}, #{userId,jdbcType=VARCHAR},
+        #{hpId,jdbcType=INTEGER}, #{smId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER})
+    </insert>
+
+    <select id="findByUserIdAndDate" parameterType="com.example.jnu_tijian.entity.Orders"
+    resultType="com.example.jnu_tijian.entity.Orders">
+        SELECT * FROM orders WHERE orderDate = #{orderDate} AND userId = #{userId}
+    </select>
+
+    <select id="selectOrderIdByUserIdAndstateAndhpIdAndsmIdAndorderDate" resultType="Integer">
+        SELECT orderId FROM orders WHERE userId = #{userId} AND state = #{state} AND hpId = #{hpId} AND smId = #{smId} AND orderDate = #{orderDate}
+    </select>
+
+    <insert id="makeOrders" parameterType="com.example.jnu_tijian.entity.Orders">
+        INSERT INTO orders (orderDate, userId, hpId, smId, state)
+        VALUES (#{orderDate}, #{userId}, #{hpId}, #{smId}, 0)
+    </insert>
+
+    <select id="checkExistingOrder" parameterType="com.example.jnu_tijian.entity.Orders" resultType="com.example.jnu_tijian.entity.Orders">
+        select * from orders
+        where userId = #{userId} and orderDate = #{orderDate} and hpId = #{hpId} and smId = #{smId}
+    </select>
+
+
+
+    <update id="updateOrderState" parameterType="com.example.jnu_tijian.entity.Orders">
+    UPDATE orders
+    SET state = 1
+    WHERE orderId = #{orderId}
+    </update>
+
+    <!-- 根据订单ID更新状态 -->
+    <update id="updateStateByOrderId">
+        UPDATE orders
+        SET state = #{state}
+        WHERE orderId = #{orderId}
+    </update>
+
+    <!-- 根据订单ID查询订单 -->
+    <select id="selectByOrderId" resultType="com.example.jnu_tijian.entity.Orders">
+        SELECT *
+        FROM orders
+        WHERE orderId = #{orderId}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.jnu_tijian.entity.Orders">
+        UPDATE orders
+        <set>
+            <if test="orderDate != null">orderDate = #{orderDate},</if>
+            <if test="userId != null">userId = #{userId},</if>
+            <if test="hpId != null">hpId = #{hpId},</if>
+            <if test="smId != null">smId = #{smId},</if>
+            <if test="state != null">state = #{state}</if>
+        </set>
+        WHERE orderId = #{orderId}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="Integer" resultType="com.example.jnu_tijian.entity.Orders">
+        SELECT * FROM orders
+        WHERE orderId = #{orderId}
+    </select>
+
+    <select id="getStatebyOrderId" parameterType="Integer" resultType="Integer">
+        SELECT state FROM orders WHERE orderId = #{orderId}
+    </select>
+
+    <select id="getOrdersByUserIdAndState" parameterType="String" resultType="com.example.jnu_tijian.entity.Orders">
+        select * from orders where userId = #{userId} and state = 1
+    </select>
+
+    <delete id="cencelAppointment" parameterType="Integer">
+        DELETE FROM orders WHERE orderId = #{orderId}
+    </delete>
+</mapper>

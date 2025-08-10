@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--namespace名称空间-->
+
+<mapper namespace="com.example.jnu_tijian.mapper.HospitalMapper">
+
+    <select id="getAll" resultType="com.example.jnu_tijian.entity.Hospital">
+        SELECT * FROM hospital
+    </select>
+
+
+    <select id="selectAll" resultType="com.example.jnu_tijian.entity.Hospital">
+        SELECT * FROM hospital where state = 1
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="Integer" resultType="com.example.jnu_tijian.entity.Hospital">
+        SELECT * FROM hospital WHERE hpId = #{hpId}
+    </select>
+
+    <select id="getHospitalNameByHpId" resultType="String" parameterType="Integer">
+        SELECT name FROM hospital WHERE hpId = #{hpId}
+
+    </select>
+</mapper>

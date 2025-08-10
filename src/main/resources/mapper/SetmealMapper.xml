@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!--namespace名称空间-->
+
+<mapper namespace="com.example.jnu_tijian.mapper.SetmealMapper">
+
+    <select id="selectBySex" parameterType="Integer" resultType="com.example.jnu_tijian.entity.Setmeal">
+        SELECT * FROM setmeal where type=#{sex}
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="Integer" resultType="com.example.jnu_tijian.entity.Setmeal">
+        select * from setmeal
+        where smId = #{smId}
+    </select>
+
+    <select id="getSetmealNameBySmId" resultType="String" parameterType="Integer">
+        SELECT name FROM setmeal WHERE smId = #{smId}
+
+    </select>
+
+</mapper>

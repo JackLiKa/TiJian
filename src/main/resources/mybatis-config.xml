@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <!-- 开启 SQL 日志 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
+
+    <typeAliases>
+        <!--        扫描包，起别名，可以不用区分大小写了，而且返回类型也可以直接写包里的类-->
+        <package name="com.example.jnu_tijian.entity"/>
+    </typeAliases>
+
+    <!--    environments：配置数据库连接环境信息，可配多个，通过default属性切换不同的environment-->
+    <environments default="development">
+
+
+        <environment id="development">
+            <!--        事务管理方式-->
+            <transactionManager type="JDBC"/>
+            <!--        数据库连接词-->
+            <dataSource type="POOLED">
+                <!--数据库连接信息-->
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/jnu_tijian?useSSL=false"/>
+                <property name="username" value="root"/>
+                <property name="password" value="Qq147258."/>
+
+            </dataSource>
+        </environment>
+
+
+    </environments>
+
+    <mappers>
+        <!--      加载sql映射文件-->
+<!--        <mapper resource="mapper/UserMapper.xml"/>-->
+
+        <!--      mapper代理处理方式-->
+        <package name="com.example.jnu_tijian.mapper"/>
+    </mappers>
+
+</configuration>
+
